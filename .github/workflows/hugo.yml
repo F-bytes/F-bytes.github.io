@@ -48,6 +48,16 @@ jobs:
           submodules: recursive
           fetch-depth: 0
       
+      - name: 检查并安装主题
+        run: |
+          if [ ! -d "themes/PaperMod" ] || [ -z "$(ls -A themes/PaperMod)" ]; then
+            echo "主题目录不存在或为空，正在下载 PaperMod 主题..."
+            rm -rf themes/PaperMod
+            git clone https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+          else
+            echo "主题已存在"
+          fi
+      
       - name: 设置 Pages
         id: pages
         uses: actions/configure-pages@v5
